@@ -10,7 +10,7 @@ import { MdSelect } from '@angular/material';
     <md-card>    
     
     <form #f="ngForm" (ngSubmit)="reprint(f.value)">
-        <md-select placeholder="Reprint LPN By:" name="by" ngModel>
+        <md-select placeholder="Reprint LPN By:" name="by" ngModel required>
           <md-option value="Lpn" >LPN</md-option>
           <md-option value="DeliveryId" >Delivery Id</md-option>
           <md-option value="ItemCode" >Item Code</md-option>
@@ -78,13 +78,17 @@ export class ReprintlpnComponent implements OnInit {
 
 
   reprint(value)  {
+    if (!value.by || !value.value) { 
+      alert(`Cannot pick empty values`)
+      return;
+    }
     console.log(`formValue:`)
     console.log(value)
     this.printLpn$ = this.srv.reprint(value)
       .subscribe(
       data =>
       {
-        alert(`Reprinted LPN for: ${value.value}!`)
+        alert(`Reprinted LPN for value: ${value.value}!`)
       },
       err =>
       {
