@@ -9,7 +9,7 @@ import { CentralService } from "app/shared/central.service";
     MaterialModule    
   ],
   providers: [CentralService],
-  exports: [MaterialModule],
+  exports: [MaterialModule, CommonModule],
   declarations: []
 })
 export class SharedModule { }

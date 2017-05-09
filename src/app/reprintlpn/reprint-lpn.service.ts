@@ -8,12 +8,9 @@ export class ReprintLpnService {
 
   constructor(private http: Http) { }
 
-reprint(option: string, lpn?:any): any {
+reprint(value): any {
   const opt = new RequestOptions()
-  opt.body = {
-    by: option,
-    lpn: lpn
-  }
+  opt.body = value
   console.log(opt.body);
   return this.http.post(`${environment.nserver}/utilities/reprintLpn`, opt)
           .map((r: Response) => r.json());

@@ -1,34 +1,44 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { CentralService } from "app/shared/central.service";
 import { ReprintLpnService } from '../reprint-lpn.service';
-//import { MdSelect } from '@angular/material';
+import { MdSelect } from '@angular/material';
 
 @Component({
   selector: 'app-reprintlpn',
   template: `
-    <md-card>    
-
-      <select placeholder="Reprint by:" #opt>
-        <option value="Lpn">LPN</option>
-        <option value="DeliveryId">Delivery Id</option>
-        <option value="ItemCode">Item Code</option>
-      </select>
     
+    <md-card>    
+    
+    <form #f="ngForm" (ngSubmit)="reprint(f.value)">
+        <md-select placeholder="Reprint LPN By:" name="by" ngModel>
+          <md-option value="Lpn" >LPN</md-option>
+          <md-option value="DeliveryId" >Delivery Id</md-option>
+          <md-option value="ItemCode" >Item Code</md-option>
+          <md-option value="Barcode" >Barcode</md-option>
+        </md-select> 
     <md-card-content>
-    Value: <md-input-container>
-            <input mdInput type="text" #lpn>
+        <md-input-container>
+            <input mdInput type="text"                            
+              name="value"
+              placeholder="Value"
+              required
+              ngModel #input>
          </md-input-container>
     </md-card-content>
     <md-card-actions align="end">
-    <button md-raised-button (click)="reprint(opt.value, lpn.value)"
+    <button md-raised-button type="submit"
             color="primary">Print</button>
     </md-card-actions>
+    </form>
     </md-card>
     <button md-button id="back"
             color="accent" 
             [routerLink]="['/utilitiesMenu']">back to utilities menu</button>
   `,
   styles: [`
+  md-select {
+    margin-bottom: 1em;
+  }
     md-card {
     max-width: 400px;
     color: black;
@@ -46,9 +56,8 @@ import { ReprintLpnService } from '../reprint-lpn.service';
   }
   `]
 })
-export class ReprintlpnComponent implements OnInit
-{
-  @ViewChild('lpn') lpnInput;
+export class ReprintlpnComponent implements OnInit {
+  @ViewChild('input') input;
   displayHead: any;
   printLpn$: any;
   by: string
@@ -56,7 +65,9 @@ export class ReprintlpnComponent implements OnInit
   {value: 'Lpn', viewValue: 'LPN'},
   {value: 'DeliveryId', viewValue: 'Delivery Id'},
   {value: 'ItemCode', viewValue: 'Item Code'},
+  {value: 'Barcode', viewValue: 'Barcode'},
   ];
+  cities = ['Miami', 'Sao Paulo', 'New York'];
   constructor(private srv: ReprintLpnService, private cs: CentralService, public el: ElementRef) { }
 
   ngOnInit()
@@ -66,13 +77,14 @@ export class ReprintlpnComponent implements OnInit
   }
 
 
-  reprint(option: string, lpn: any)
-  {
-    this.printLpn$ = this.srv.reprint(option, lpn)
+  reprint(value)  {
+    console.log(`formValue:`)
+    console.log(value)
+    this.printLpn$ = this.srv.reprint(value)
       .subscribe(
       data =>
       {
-        alert(`Reprinted LPN: ${lpn}!`)
+        alert(`Reprinted LPN for: ${value.value}!`)
       },
       err =>
       {
@@ -82,7 +94,7 @@ export class ReprintlpnComponent implements OnInit
       () =>
       {
         console.log(`Service executed MarkLpnPicked`)
-        this.lpnInput.nativeElement.value = '';
+        this.input.nativeElement.value = '';
       });
   }
 
