@@ -1,0 +1,8 @@
+<button md-raised-button color="primary" [routerLink]="['./pickForm']">Menu</button>
+<button md-raised-button color="accent" [routerLink]="['./pickScreen']">Screen</button>
+<md-card>
+  <router-outlet></router-outlet>
+</md-card>
+<button md-button id="back"
+            color="accent" 
+            [routerLink]="['/pickingMenu']">back to picking menu</button>

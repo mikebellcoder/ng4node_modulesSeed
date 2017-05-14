@@ -1,0 +1,11 @@
+form {
+  width: 300px;
+  margin: auto;
+}
+input {
+  margin-bottom: 1em;
+}
+md-dialog-container {
+  width: 340px;
+  padding: 5px;
+}

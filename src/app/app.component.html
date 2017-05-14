@@ -1,6 +1,6 @@
 <md-toolbar>
-  <span>Dissem Center</span>
+  <span [routerLink]="['/mainMenu']">Dissem Center</span>
   <span class="spacer"></span>
-  <span [routerLink]="['/mainMenu']">Menu</span>
+  <span *ngIf="this.as.isLoggedIn" (click)="logOut()">LogOut</span>
 </md-toolbar>
 <router-outlet></router-outlet>

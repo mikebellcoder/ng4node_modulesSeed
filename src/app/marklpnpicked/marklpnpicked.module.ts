@@ -8,6 +8,7 @@ import { MarklpnpickedService } from "app/marklpnpicked/marklpnpicked.service";
 
 @NgModule({
   imports: [
+    CommonModule,
     MarklpnpickedRoutingModule,
     MaterialModule,
     SharedModule

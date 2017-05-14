@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog } from "@angular/material";
+import { AuthComponent } from "app/auth/auth.component";
+import { AuthService } from "app/shared/auth.service";
 
 @Component({
   selector: 'app-main-menu',
@@ -14,9 +17,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MdDialog, public as: AuthService) { }
 
-  ngOnInit() {
+ngOnInit() {
+  if(sessionStorage.getItem('active') == 'Y') {
+    return;
+  } else {
+  this.openDialog();
+  }
+  }
+
+openDialog() {
+    let dialogRef = this.dialog.open(AuthComponent);
+    dialogRef.afterClosed().subscribe(data => {
+      this.as.login(data);
+            });
   }
 
 }

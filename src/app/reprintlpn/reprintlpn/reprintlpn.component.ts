@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { CentralService } from "app/shared/central.service";
 import { ReprintLpnService } from '../reprint-lpn.service';
-import { MdSelect } from '@angular/material';
 
 @Component({
   selector: 'app-reprintlpn',
