@@ -11,6 +11,8 @@ import 'hammerjs';
 import { UtilitiesMenuComponent } from './utilities-menu/utilities-menu.component';
 import { AuthComponent } from './auth/auth.component';
 import { AUTH } from "app/shared/auth.service";
+import { TestComponent } from './test.component';
+import { TestService } from './test.service';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { AUTH } from "app/shared/auth.service";
     PickingMenuComponent,
     MainMenuComponent,
     UtilitiesMenuComponent,
-    AuthComponent
+    AuthComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,    
@@ -29,7 +32,7 @@ import { AUTH } from "app/shared/auth.service";
     BrowserAnimationsModule
   ],
   entryComponents: [AuthComponent],
-  providers: [AUTH],
+  providers: [AUTH, TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

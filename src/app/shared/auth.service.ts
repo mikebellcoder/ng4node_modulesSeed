@@ -44,6 +44,10 @@ logout() {
   this.routeBack();
 }
 
+getUserName(): string {
+  return sessionStorage.getItem('userName');
+} 
+
 routeBack() {
   console.log(`Not logged in.`)
   this.router.navigate(['/mainMenu']);

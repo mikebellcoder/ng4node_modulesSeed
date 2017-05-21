@@ -8,7 +8,7 @@ import { AuthService } from "app/shared/auth.service";
 })
 export class AppComponent implements OnInit, OnDestroy, OnChanges {
 isLoggedIn: boolean;
-constructor(private as: AuthService) {
+constructor(public as: AuthService) {
 }
 
 logOut() {  

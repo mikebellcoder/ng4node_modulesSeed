@@ -156,7 +156,7 @@ export class ParceldebuggerComponent implements OnInit, OnDestroy {
   showResult: boolean = false;
   debugItem$: any;
   debugObject$: BehaviorSubject<any> = new BehaviorSubject({});
-  
+  subscription$: any;
   constructor(
     private srv: ParcelDebuggerService, 
     private rls: ReprintLpnService,
@@ -188,12 +188,12 @@ export class ParceldebuggerComponent implements OnInit, OnDestroy {
       alert(`Cannot search empty values`)
       return;
     }
-    if (!value.startsWith('0') && !value.startsWith('BP') && !value.startsWith('DDC')) { 
+    if (!value.startsWith('0' || 'BP' || 'PKG')) { 
       alert(`Please enter valid value: Barcode or Lpn.`)
       return;
     }
     console.log(`formValue:`, formValue)    
-    this.srv.getDebugData(value).subscribe(data => {
+     this.subscription$ = this.srv.getDebugData(value).subscribe(data => {
       if(!data) {
         this.showResult = false
         alert(`Value ${value} returned no results.`);
@@ -259,8 +259,7 @@ openDialog() {
 
 
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this.cs.resetAppName();
     if (this.debugItem$) {      
       this.debugItem$.unsubscribe();
@@ -270,6 +269,11 @@ openDialog() {
     if (this.printLpn$) {
       this.printLpn$.unsubscribe();
       console.log(`unsubscribed from printLpn$`);
+    }
+
+    if (this.subscription$) {
+      this.subscription$.unsubscribe();
+      console.log(`unsubscribed from debugger subscription$`);
     }
   }
 

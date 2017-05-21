@@ -1,13 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Inject } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
-
-
-interface PickCriteria {
-  pickType: string[],
-  pickFor: object,
-  pickUsing: object,
-  pickLocation: object
-}
+import { PickCriteria } from '../../models/pickingapp.models';
+import { PickingService } from "app/pickingapp/picking.service";
 
 @Component({
   selector: 'app-pickform',
@@ -15,31 +9,29 @@ interface PickCriteria {
   styleUrls: ['./pickform.component.css']
 })
 export class PickformComponent implements OnInit, OnDestroy {
-  default: PickCriteria = {pickType: ['all'], pickFor: {for: 'all', val: 0}, pickUsing: {using: 'all'}, pickLocation: {location:'all'}};
-  pickCriteria: PickCriteria;
   pickCriteria$: BehaviorSubject<PickCriteria>;
   subscription$: Subscription;
-  constructor() { }
+  constructor(@Inject(PickingService) public srv: PickingService) { }
 
   addCriteria(value) {
     let v = Object.keys(value)[0];    
     console.log(`switch received: `, v)
     switch(v) {    
     case 'pickType':
-    this.pickCriteria$.next(Object.assign(this.default, {pickType: value.pickType}));
-    console.log('switch case: pickType',this.pickCriteria$.getValue());    
+    this.srv.next(Object.assign(this.srv.default, {pickType: value.pickType}));
+    console.log('switch case: pickType',this.srv.pickCriteriaValue());    
     break;
     case 'for':    
-    this.pickCriteria$.next(Object.assign(this.default, {pickFor: value}));
-    console.log('switch case: for',this.pickCriteria$.getValue());    
+    this.srv.next(Object.assign(this.srv.default, {pickFor: value}));
+    console.log('switch case: for',this.srv.pickCriteriaValue());    
     break;
     case 'using':    
-    this.pickCriteria$.next(Object.assign(this.default, {pickUsing: value}));
-    console.log('switch case using',this.pickCriteria$.getValue());    
+    this.srv.next(Object.assign(this.srv.default, {pickUsing: value}));
+    console.log('switch case using',this.srv.pickCriteriaValue());    
     break;
     case 'location':    
-    this.pickCriteria$.next(Object.assign(this.default, {pickLocation: value}));
-    console.log('switch case location',this.pickCriteria$.getValue());
+    this.srv.next(Object.assign(this.srv.default, {pickLocation: value}));
+    console.log('switch case location',this.srv.pickCriteriaValue());
     break;
     default: 
     console.log('Switch produced no changes');
@@ -47,7 +39,7 @@ export class PickformComponent implements OnInit, OnDestroy {
     }
 }
   ngOnInit() {    
-    this.pickCriteria$ = new BehaviorSubject<PickCriteria>(this.default);
+    //this.pickCriteria$ = this.srv.pickCriteria$;
   }  
   ngOnDestroy() {
     if(this.subscription$) {
@@ -56,16 +48,7 @@ export class PickformComponent implements OnInit, OnDestroy {
     }
   }
 
-  startPicking() {
-    this.subscription$ = this.pickCriteria$
-              //.pluck('pickType')
-              //.map((pc) => pc.pickType.toString())
-              //.filter((value, i) => value[i].pickType[i] == 'FB')
-              .subscribe((pc: PickCriteria) => {
-                console.log(pc);
-                alert(pc.pickType.toString());
-              });        
-    //console.log(`pickCriteria:`, this.pickCriteria);    
-    //alert(`Pick Criteria: ${JSON.stringify(this.pickCriteria)}`);
+  startPicking() {    
+          this.srv.startPicking()    
   }
 }

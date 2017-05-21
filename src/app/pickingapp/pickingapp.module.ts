@@ -9,6 +9,7 @@ import { PickTypeSelectionComponent } from './pickingapp/pickform/pick-type-sele
 import { PickForSelectionComponent } from './pickingapp/pick-for-selection.component';
 import { PickUsingSelectionComponent } from './pickingapp/pick-using-selection.component';
 import { PickLocationSelectionComponent } from './pickingapp/pick-location-selection.component';
+import { PickingService } from './picking.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { PickLocationSelectionComponent } from './pickingapp/pick-location-selec
     SharedModule,
     PickingappRoutingModule
   ],
+  //providers: [PickingService],
   declarations: [PickingappComponent, PickformComponent, PickscreenComponent, PickTypeSelectionComponent, PickForSelectionComponent, PickUsingSelectionComponent, PickLocationSelectionComponent]
 })
 export class PickingappModule { }
