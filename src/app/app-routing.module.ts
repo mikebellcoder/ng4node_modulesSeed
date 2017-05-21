@@ -14,7 +14,8 @@ const routes: Routes = [
   {path: 'markLpnPicked', loadChildren: 'app/marklpnpicked/marklpnpicked.module.ts#MarklpnpickedModule'},
   {path: 'utilitiesMenu', component: UtilitiesMenuComponent, canActivate: [ LoggedInGuard ]},
   {path: 'parcelDebugger', loadChildren: 'app/parceldebugger/parcel-debugger.module.ts#ParcelDebuggerModule'},
-  {path: 'reprintLpn', loadChildren: 'app/reprintlpn/reprint-lpn.module.ts#ReprintLpnModule'}
+  {path: 'reprintLpn', loadChildren: 'app/reprintlpn/reprint-lpn.module.ts#ReprintLpnModule'},
+  {path: '**', redirectTo: 'mainMenu'}
 ];
 
 @NgModule({
