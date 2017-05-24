@@ -10,6 +10,7 @@ import { PickForSelectionComponent } from './pickingapp/pick-for-selection.compo
 import { PickUsingSelectionComponent } from './pickingapp/pick-using-selection.component';
 import { PickLocationSelectionComponent } from './pickingapp/pick-location-selection.component';
 import { PickingService } from './picking.service';
+import { ClickConfirmDirective } from './pickingapp/pickscreen/click-confirm.directive';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { PickingService } from './picking.service';
     PickingappRoutingModule
   ],
   //providers: [PickingService],
-  declarations: [PickingappComponent, PickformComponent, PickscreenComponent, PickTypeSelectionComponent, PickForSelectionComponent, PickUsingSelectionComponent, PickLocationSelectionComponent]
+  declarations: [PickingappComponent, PickformComponent, PickscreenComponent, PickTypeSelectionComponent, PickForSelectionComponent, PickUsingSelectionComponent, PickLocationSelectionComponent, ClickConfirmDirective]
 })
 export class PickingappModule { }

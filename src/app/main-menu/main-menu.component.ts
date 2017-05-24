@@ -28,10 +28,8 @@ ngOnInit() {
   }
 
 openDialog() {
-    let dialogRef = this.dialog.open(AuthComponent);
-    dialogRef.afterClosed().subscribe(data => {
-      this.as.login(data);
-            });
+    let dialogRef = this.dialog.open(AuthComponent, {disableClose: true});
+    dialogRef.afterClosed().subscribe(console.log);
   }
 
 }

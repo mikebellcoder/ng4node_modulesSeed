@@ -185,13 +185,10 @@ export class ParceldebuggerComponent implements OnInit, OnDestroy {
         this.showResult = false;
       }
     if (!value) { 
-      alert(`Cannot search empty values`)
+    alert(`Cannot search empty values`)
       return;
     }
-    if (!value.startsWith('0' || 'BP' || 'PKG')) { 
-      alert(`Please enter valid value: Barcode or Lpn.`)
-      return;
-    }
+    
     console.log(`formValue:`, formValue)    
      this.subscription$ = this.srv.getDebugData(value).subscribe(data => {
       if(!data) {
@@ -203,7 +200,10 @@ export class ParceldebuggerComponent implements OnInit, OnDestroy {
       this.debugObject$.next(data)
       this.showResult = true;      
       },
-      (err)=> console.log(err),
+      (err)=> {
+        alert(err); 
+        console.log(err);
+      },
       () => {
         console.dir(this.debugObject$.value);
       });

@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { PickCriteria } from "app/pickingapp/models/pickingapp.models";
+import { PickCriteria, testPick } from "app/pickingapp/models/pickingapp.models";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Router } from "@angular/router";
 import { environment } from "environments/environment";
@@ -30,15 +30,40 @@ pick$: BehaviorSubject<any> = new BehaviorSubject<any>({});
       this.getPick();
 }
 
-getPick() {    
-    let params = JSON.stringify(this.pickCriteriaValue());
+getPick() {
+  let d = { pickedBy: 'soddc'};
+    let params = JSON.stringify(this.pickCriteriaValue()? this.pickCriteriaValue(): d);
     this.http.get(`${environment.nserver}/picking/${params}`)
               .map((r: Response) => r.json())
               .subscribe((value) => {
+                //this.pick$.next(testPick);
                 this.pick$.next(value);
                 //console.log(value);
                 this.router.navigate(['stockPicking/pickScreen']);
   });
     
-  }
+}
+
+postPick(valueObject: any) {
+  console.log(`PickingService.postPick() received: `,valueObject)
+  const opts = new RequestOptions();
+  opts.body = valueObject
+    this.http.post(`${environment.nserver}/picking/42`, opts)
+              .map((r: Response) => r.json())
+              .subscribe((value) => {
+                console.log(`postPick() returned: `,value)
+                if (value.length == 2 && value[1] == 0) {
+                  console.log(`calling getPick from postPick`)
+                this.getPick()             
+              }
+              
+  },
+  (err) => console.log(err),
+  () => console.log(`postPick() completed`));
+
+}
+
+
+
+
 }

@@ -12,7 +12,6 @@ import { UtilitiesMenuComponent } from './utilities-menu/utilities-menu.componen
 import { AuthComponent } from './auth/auth.component';
 import { AUTH } from "app/shared/auth.service";
 import { TestComponent } from './test.component';
-import { TestService } from './test.service';
 
 
 @NgModule({
@@ -32,7 +31,7 @@ import { TestService } from './test.service';
     BrowserAnimationsModule
   ],
   entryComponents: [AuthComponent],
-  providers: [AUTH, TestService],
+  providers: [AUTH],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,13 @@
+.primaryColor {
+  font-size: 1.2rem;
+  color: dodgerblue
+}
+
+.confirmButton {  
+  height: 100% !important;
+  width: 4em !important;
+  background-color: green;
+  color: white;
+
+
+}
