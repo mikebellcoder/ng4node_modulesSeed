@@ -11,6 +11,8 @@
 /.vscode
 /e2e
 /.**
+/src
+
 
 # IDEs and editors
 /.idea
