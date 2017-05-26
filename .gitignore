@@ -7,6 +7,10 @@
 
 # dependencies
 /node_modules
+/src/**/*
+/.vscode
+/e2e
+/.**
 
 # IDEs and editors
 /.idea
