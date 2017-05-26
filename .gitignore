@@ -14,6 +14,7 @@
 /src
 
 
+
 # IDEs and editors
 /.idea
 .project
@@ -38,6 +39,9 @@
 npm-debug.log
 testem.log
 /typings
+/*.js
+/*.json
+/*.md
 
 # e2e
 /e2e/*.js
